@@ -51,8 +51,17 @@ services:
       - postgres
 #      - mysql  # Uncomment if using MySQL
 #      - clickhouse  # Uncomment if using ClickHouse for LOG_SQL_DSN
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+      - "traefik.http.routers.new-api.rule=Host(`nextrouter.cc`)"
+      - "traefik.http.routers.new-api.entrypoints=websecure"
+      - "traefik.http.routers.new-api.tls=true"
+      - "traefik.http.routers.new-api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.new-api.loadbalancer.server.port=3000"
     networks:
       - new-api-network
+      - dokploy-network
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://localhost:3000/api/status | grep -o '\"success\":\\s*true' || exit 1"]
       interval: 30s
@@ -121,3 +130,5 @@ volumes:
 networks:
   new-api-network:
     driver: bridge
+  dokploy-network:
+    external: true
