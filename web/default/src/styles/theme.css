@@ -72,6 +72,8 @@ For commercial licensing, please contact support@quantumnous.com
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-cta: var(--cta-background);
+  --color-cta-foreground: var(--cta-foreground);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -93,6 +95,8 @@ For commercial licensing, please contact support@quantumnous.com
 :root {
   --radius: 1rem;
   --app-header-height: 3rem;
+  --cta-background: oklch(0.145 0.025 265);
+  --cta-foreground: oklch(0.985 0.002 265);
   /* Static build-channel fallback consumed when JS hasn't booted yet. */
   --app-rev: '2k6e8r7p';
   /* Currently active body font. The font axis swaps this between
