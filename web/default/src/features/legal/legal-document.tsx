@@ -34,6 +34,7 @@ type LegalDocumentProps = {
   queryKey: string
   fetchDocument: () => Promise<LegalDocumentResponse>
   emptyMessage: string
+  fallbackContent?: string
 }
 
 export function LegalDocument({
@@ -41,6 +42,7 @@ export function LegalDocument({
   queryKey,
   fetchDocument,
   emptyMessage,
+  fallbackContent,
 }: LegalDocumentProps) {
   const { t } = useTranslation()
   const { data, isLoading } = useQuery({
@@ -49,12 +51,11 @@ export function LegalDocument({
     staleTime: 10 * 60 * 1000,
   })
 
-  const rawContent = data?.data?.trim() ?? ''
+  const configuredContent = data?.success ? data.data?.trim() ?? '' : ''
+  const rawContent = configuredContent || fallbackContent?.trim() || ''
   const hasContent = rawContent.length > 0
-  const isUrl = hasContent && isHttpUrl(rawContent)
+  const isUrl = Boolean(configuredContent) && isHttpUrl(rawContent)
   const contentIsHtml = hasContent && isLikelyHtml(rawContent)
-  const success = data?.success ?? false
-
   if (isLoading) {
     return (
       <PublicLayout>
@@ -68,7 +69,7 @@ export function LegalDocument({
     )
   }
 
-  if (!success || !hasContent) {
+  if (!hasContent) {
     return (
       <PublicLayout>
         <div className='mx-auto max-w-2xl py-12'>

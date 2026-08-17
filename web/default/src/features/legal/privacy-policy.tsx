@@ -19,10 +19,13 @@ For commercial licensing, please contact support@quantumnous.com
 import { useTranslation } from 'react-i18next'
 
 import { getPrivacyPolicy } from './api'
+import { PRIVACY_POLICY_FALLBACK_CONTENT } from './fallback-content'
 import { LegalDocument } from './legal-document'
 
 export function PrivacyPolicy() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const language = i18n.resolvedLanguage === 'zh' ? 'zh' : 'en'
+
   return (
     <LegalDocument
       title={t('Privacy Policy')}
@@ -31,6 +34,7 @@ export function PrivacyPolicy() {
       emptyMessage={t(
         'The administrator has not configured a privacy policy yet.'
       )}
+      fallbackContent={PRIVACY_POLICY_FALLBACK_CONTENT[language]}
     />
   )
 }

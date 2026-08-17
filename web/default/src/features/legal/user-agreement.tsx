@@ -19,10 +19,13 @@ For commercial licensing, please contact support@quantumnous.com
 import { useTranslation } from 'react-i18next'
 
 import { getUserAgreement } from './api'
+import { USER_AGREEMENT_FALLBACK_CONTENT } from './fallback-content'
 import { LegalDocument } from './legal-document'
 
 export function UserAgreement() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const language = i18n.resolvedLanguage === 'zh' ? 'zh' : 'en'
+
   return (
     <LegalDocument
       title={t('User Agreement')}
@@ -31,6 +34,7 @@ export function UserAgreement() {
       emptyMessage={t(
         'The administrator has not configured a user agreement yet.'
       )}
+      fallbackContent={USER_AGREEMENT_FALLBACK_CONTENT[language]}
     />
   )
 }

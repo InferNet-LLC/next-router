@@ -91,6 +91,7 @@ function DefaultHome() {
       showMainContainer={false}
       showNotifications={false}
       showThemeSwitch={false}
+      showSiteOperatorFooter={false}
       siteName="Next Router"
       headerProps={{ homeUrl: "/", embedded: true }}
     >

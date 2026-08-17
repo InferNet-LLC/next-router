@@ -35,7 +35,7 @@ export function SignIn() {
       <div className='w-full space-y-8'>
         <div className='space-y-2'>
           <h2 className='text-center text-2xl font-semibold tracking-tight sm:text-left'>
-            {t('Sign in')}
+            {t('Sign in to Next Router')}
           </h2>
           {!status?.self_use_mode_enabled &&
             status?.register_enabled !== false && (
@@ -54,11 +54,7 @@ export function SignIn() {
 
         <UserAuthForm redirectTo={redirect} />
 
-        <TermsFooter
-          variant='sign-in'
-          status={status}
-          className='text-center'
-        />
+        <TermsFooter variant='sign-in' className='text-center' />
       </div>
     </AuthLayout>
   )

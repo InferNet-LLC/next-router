@@ -16,6 +16,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+import { SiteOperatorFooter } from '@/components/site-operator'
+
 import type { TopNavLink } from '../types'
 import { PublicHeader, type PublicHeaderProps } from './public-header'
 
@@ -30,11 +32,12 @@ type PublicLayoutProps = {
   showNotifications?: boolean
   logo?: React.ReactNode
   siteName?: string
+  showSiteOperatorFooter?: boolean
 }
 
 export function PublicLayout(props: PublicLayoutProps) {
   return (
-    <div className='bg-background text-foreground relative min-h-svh overflow-x-clip'>
+    <div className='bg-background text-foreground relative flex min-h-svh flex-col overflow-x-clip'>
       <PublicHeader
         navContent={props.navContent}
         navLinks={props.navLinks}
@@ -47,12 +50,13 @@ export function PublicLayout(props: PublicLayoutProps) {
       />
 
       {props.showMainContainer !== false ? (
-        <main className='container px-4 py-6 pt-20 md:px-4'>
+        <main className='container flex-1 px-4 py-6 pt-20 md:px-4'>
           {props.children}
         </main>
       ) : (
-        props.children
+        <div className='flex-1'>{props.children}</div>
       )}
+      {props.showSiteOperatorFooter !== false && <SiteOperatorFooter />}
     </div>
   )
 }
