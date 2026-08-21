@@ -58,6 +58,16 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=dokploy-network"
+
+      # HTTP 自动跳转 HTTPS
+      - "traefik.http.middlewares.new-api-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.new-api-redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.new-api-http.rule=Host(`nextrouter.cc`)"
+      - "traefik.http.routers.new-api-http.entrypoints=web"
+      - "traefik.http.routers.new-api-http.middlewares=new-api-redirect"
+      - "traefik.http.routers.new-api-http.service=new-api"
+
+      # HTTPS 路由
       - "traefik.http.routers.new-api.rule=Host(`nextrouter.cc`)"
       - "traefik.http.routers.new-api.entrypoints=websecure"
       - "traefik.http.routers.new-api.tls=true"
